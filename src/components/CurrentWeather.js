@@ -27,14 +27,46 @@ const CurrentWeather = () => {
       .then((result) => {
         setData({
           location: result.data.name,
-          temp: result.data.main.temp,
+          temp: Math.round(result.data.main.temp),
           desc: result.data.weather[0].description,
-          wind: result.data.wind.speed,
+          wind: Math.round(result.data.wind.speed * 10) / 10,
           humidity: result.data.main.humidity,
           date: result.data.dt,
           icon: result.data.weather[0].icon,
         });
       });
+  };
+
+  const formatDate = (time) => {
+    let date = new Date(time * 1000);
+    let dt = date.getDate();
+    let month = date.toLocaleDateString("en-gb", { month: "long" });
+
+    let dateString = `${month} ${dt}${ordinal(dt)}`;
+    return dateString;
+  };
+
+  const formatTime = (time) => {
+    let date = new Date(time * 1000);
+    let hours = date.getHours();
+    let minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
+
+    let timeString = `${hours}:${minutes}`;
+    return timeString;
+  };
+
+  const ordinal = (date) => {
+    if (date > 3 && date < 21) return "th";
+    switch (date % 10) {
+      case 1:
+        return "st";
+      case 2:
+        return "nd";
+      case 3:
+        return "rd";
+      default:
+        return "th";
+    }
   };
 
   React.useEffect(() => {
@@ -58,9 +90,11 @@ const CurrentWeather = () => {
         <Typography variant="body2">
           Wind: {data.wind} m/s
           <br />
-          Temperature: {data.temp} °C
-          <br />
           Humidity: {data.humidity} %
+          <br />
+          {formatDate(data.date)}
+          <br />
+          {formatTime(data.date)}
         </Typography>
       </CardContent>
     </Card>
