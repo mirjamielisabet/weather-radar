@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Card, CardContent, Typography } from "@mui/material";
 
-const CurrentWeather = () => {
+const CurrentWeather = (props) => {
   const [data, setData] = React.useState({
     location: "",
     temp: "",
@@ -13,12 +13,40 @@ const CurrentWeather = () => {
     icon: "",
   });
 
-  const getWeatherData = () => {
-    const apiKey = "apikey";
+  const currentLocation = props.location;
 
-    // Tampere:
-    const lat = 61.4991;
-    const lon = 23.7871;
+  const getLat = (location) => {
+    switch (location) {
+      case "Espoo":
+        return 60.25;
+      case "Jyväskylä":
+        return 62.2415;
+      case "Kuopio":
+        return 62.8924;
+      case "Tampere":
+        return 61.4991;
+      default:
+        return 60.25;
+    }
+  };
+
+  const getLon = (location) => {
+    switch (location) {
+      case "Espoo":
+        return 24.6667;
+      case "Jyväskylä":
+        return 25.7209;
+      case "Kuopio":
+        return 27.677;
+      case "Tampere":
+        return 23.7871;
+      default:
+        return 24.6667;
+    }
+  };
+
+  const getWeatherData = (lat, lon) => {
+    const apiKey = "apikey";
 
     axios
       .get(
@@ -36,6 +64,12 @@ const CurrentWeather = () => {
         });
       });
   };
+
+  React.useEffect(() => {
+    let lat = getLat(currentLocation);
+    let lon = getLon(currentLocation);
+    getWeatherData(lat, lon);
+  }, [currentLocation]);
 
   const formatDate = (time) => {
     let date = new Date(time * 1000);
@@ -68,10 +102,6 @@ const CurrentWeather = () => {
         return "th";
     }
   };
-
-  React.useEffect(() => {
-    getWeatherData();
-  }, []);
 
   return (
     <Card sx={{ minWidth: 275 }}>
