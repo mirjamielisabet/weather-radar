@@ -4,15 +4,9 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const DropDownMenu = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selected, setSelected] = React.useState(4);
-  const [location, setLocation] = React.useState("Kaikki kaupungit");
-  const options = [
-    "Espoo",
-    "Jyväskylä",
-    "Kuopio",
-    "Tampere",
-    "Kaikki kaupungit",
-  ];
+  const [selected, setSelected] = React.useState(0);
+  const [location, setLocation] = React.useState("All cities");
+  const options = ["All cities", "Espoo", "Jyväskylä", "Kuopio", "Tampere"];
   const open = Boolean(anchorEl);
 
   const openMenu = (event) => {
@@ -55,7 +49,6 @@ const DropDownMenu = (props) => {
         {options.map((option, index) => (
           <MenuItem
             key={index}
-            name="Espoo"
             onClick={(event) => onMenuItemClick(event, index)}
             selected={index === selected}
           >
