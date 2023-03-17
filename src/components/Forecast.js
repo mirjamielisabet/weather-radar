@@ -13,6 +13,10 @@ const Forecast = (props) => {
     },
   ]);
 
+  const currentLocation = props.location;
+  const getLat = props.getLat;
+  const getLon = props.getLon;
+
   const formatTime = (time) => {
     let date = new Date(time);
     let hours = date.getHours();
@@ -22,12 +26,8 @@ const Forecast = (props) => {
     return timeString;
   };
 
-  const getForecastData = () => {
+  const getForecastData = (lat, lon) => {
     const apiKey = process.env.REACT_APP_API_KEY;
-
-    // Tampere:
-    const lat = 61.4991;
-    const lon = 23.7871;
 
     const tempArr = [];
 
@@ -50,8 +50,10 @@ const Forecast = (props) => {
   };
 
   React.useEffect(() => {
-    getForecastData();
-  }, []);
+    let lat = getLat(currentLocation);
+    let lon = getLon(currentLocation);
+    getForecastData(lat, lon);
+  }, [currentLocation, getLat, getLon]);
 
   return (
     <div>
