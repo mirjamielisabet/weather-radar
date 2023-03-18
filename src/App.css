@@ -14,3 +14,18 @@ body {
   border-width: 1px;
   border-color: #e6e6e6;
 }
+
+.dropdown {
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 4%;
+  margin-bottom: 3%;
+}
+
+.menuButton {
+  background-color: #ffffff;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #e6e6e6;
+  border-radius: 5px;
+}

@@ -1,5 +1,6 @@
+import "../App.css";
 import React from "react";
-import { Button, Menu, MenuItem } from "@mui/material";
+import { List, ListItem, ListItemText, Menu, MenuItem } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const DropDownMenu = (props) => {
@@ -25,18 +26,19 @@ const DropDownMenu = (props) => {
   };
 
   return (
-    <div>
-      <Button
-        id="basic-button"
-        aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        variant="outlined"
-        onClick={openMenu}
-        endIcon={<KeyboardArrowDownIcon />}
-      >
-        {location}
-      </Button>
+    <div className="dropdown">
+      <List className="menuButton">
+        <ListItem
+          aria-controls="lock-menu"
+          aria-haspopup="listbox"
+          aria-expanded={open ? "true" : undefined}
+          onClick={openMenu}
+        >
+          <ListItemText primary={location} />
+          <KeyboardArrowDownIcon />
+        </ListItem>
+      </List>
+
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
@@ -44,6 +46,11 @@ const DropDownMenu = (props) => {
         onClose={closeMenu}
         MenuListProps={{
           "aria-labelledby": "basic-button",
+          sx: {
+            "&& .Mui-selected": {
+              backgroundColor: "#E6E6E6",
+            },
+          },
         }}
       >
         {options.map((option, index) => (
