@@ -1,5 +1,7 @@
+import "../App.css";
+
 const Header = () => {
-  return <h1>Weather Radar</h1>;
+  return <div className="header">Weather Radar</div>;
 };
 
 export default Header;
