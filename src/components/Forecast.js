@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Card, CardContent, Typography } from "@mui/material";
+import { Card, CardContent, Stack, Typography } from "@mui/material";
 
 const Forecast = (props) => {
   const [data, setData] = React.useState([
@@ -56,10 +56,15 @@ const Forecast = (props) => {
   }, [currentLocation, getLat, getLon]);
 
   return (
-    <div>
+    <Stack
+      direction="row"
+      spacing={1}
+      justifyContent="center"
+      className="forecastContainer"
+    >
       {data.map((row, index) => {
         return (
-          <Card sx={{ minWidth: 275 }} key={index}>
+          <Card key={index}>
             <CardContent>
               <Typography
                 sx={{ fontSize: 14 }}
@@ -85,7 +90,7 @@ const Forecast = (props) => {
           </Card>
         );
       })}
-    </div>
+    </Stack>
   );
 };
 
