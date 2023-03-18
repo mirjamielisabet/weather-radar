@@ -1,6 +1,7 @@
+import "../App.css";
 import React from "react";
 import axios from "axios";
-import { Card, CardContent, Typography } from "@mui/material";
+import { Card, CardContent, Stack, Typography } from "@mui/material";
 
 const CurrentWeather = (props) => {
   const [data, setData] = React.useState({
@@ -14,39 +15,11 @@ const CurrentWeather = (props) => {
   });
 
   const currentLocation = props.location;
-
-  const getLat = (location) => {
-    switch (location) {
-      case "Espoo":
-        return 60.25;
-      case "Jyväskylä":
-        return 62.2415;
-      case "Kuopio":
-        return 62.8924;
-      case "Tampere":
-        return 61.4991;
-      default:
-        return 60.25;
-    }
-  };
-
-  const getLon = (location) => {
-    switch (location) {
-      case "Espoo":
-        return 24.6667;
-      case "Jyväskylä":
-        return 25.7209;
-      case "Kuopio":
-        return 27.677;
-      case "Tampere":
-        return 23.7871;
-      default:
-        return 24.6667;
-    }
-  };
+  const getLat = props.getLat;
+  const getLon = props.getLon;
 
   const getWeatherData = (lat, lon) => {
-    const apiKey = "apikey";
+    const apiKey = process.env.REACT_APP_API_KEY;
 
     axios
       .get(
@@ -69,7 +42,7 @@ const CurrentWeather = (props) => {
     let lat = getLat(currentLocation);
     let lon = getLon(currentLocation);
     getWeatherData(lat, lon);
-  }, [currentLocation]);
+  }, [currentLocation, getLat, getLon]);
 
   const formatDate = (time) => {
     let date = new Date(time * 1000);
@@ -104,28 +77,62 @@ const CurrentWeather = (props) => {
   };
 
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card className="weatherContainer">
       <CardContent>
-        <Typography sx={{ fontSize: 20 }}>{data.location}</Typography>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {data.desc}
-        </Typography>
-        <img
-          src={`https://openweathermap.org/img/w/${data.icon}.png`}
-          alt="weather icon"
-        />
-        <Typography sx={{ fontSize: 20 }} gutterBottom>
-          {data.temp} °C
-        </Typography>
-        <Typography variant="body2">
-          Wind: {data.wind} m/s
-          <br />
-          Humidity: {data.humidity} %
-          <br />
-          {formatDate(data.date)}
-          <br />
-          {formatTime(data.date)}
-        </Typography>
+        <Stack direction="row" justifyContent="space-between" paddingBottom={3}>
+          <Stack>
+            <Typography
+              sx={{ fontSize: 20, position: "relative", top: "15px" }}
+            >
+              {data.location}
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: 14,
+                position: "relative",
+                top: "11px",
+              }}
+              color="text.secondary"
+            >
+              {data.desc}
+            </Typography>
+          </Stack>
+
+          <Stack direction="row">
+            <img
+              src={`https://openweathermap.org/img/w/${data.icon}.png`}
+              alt="weather icon"
+              class="icon"
+            />
+            <Typography
+              sx={{ fontSize: 30, position: "relative", top: "15px" }}
+            >
+              {data.temp}
+            </Typography>
+            <Typography
+              sx={{ fontSize: 15, position: "relative", top: "20px" }}
+            >
+              °C
+            </Typography>
+          </Stack>
+        </Stack>
+
+        <Stack direction="row" justifyContent="space-between">
+          <Stack>
+            <Typography variant="body2" sx={{ fontSize: 15 }}>
+              {formatDate(data.date)}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {formatTime(data.date)}
+            </Typography>
+          </Stack>
+
+          <Typography variant="body2" textAlign="right" color="text.secondary">
+            Wind: {data.wind} m/s
+            <br />
+            Humidity: {data.humidity} %
+          </Typography>
+        </Stack>
       </CardContent>
     </Card>
   );

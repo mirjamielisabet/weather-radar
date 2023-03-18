@@ -29,3 +29,15 @@ body {
   border-color: #e6e6e6;
   border-radius: 5px;
 }
+
+.icon {
+  width: 5em;
+  position: "relative";
+  top: "5px";
+}
+
+.weatherContainer {
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 1%;
+}
