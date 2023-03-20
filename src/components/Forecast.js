@@ -8,6 +8,7 @@ const Forecast = (props) => {
       temp: "",
       wind: "",
       humidity: "",
+      rain: "",
       date: "",
       icon: "",
     },
@@ -38,10 +39,17 @@ const Forecast = (props) => {
       )
       .then((result) => {
         for (let i = 1; i < 6; i++) {
+          let rain = 0;
+          if (result.data.list[i].rain) {
+            if (result.data.list[i].rain["3h"]) {
+              rain = Math.round(result.data.list[i].rain["3h"]);
+            }
+          }
           tempArr.push({
             temp: Math.round(result.data.list[i].main.temp),
             wind: Math.round(result.data.list[i].wind.speed * 10) / 10,
             humidity: result.data.list[i].main.humidity,
+            rain: rain,
             date: result.data.list[i].dt_txt,
             icon: result.data.list[i].weather[0].icon,
           });
@@ -100,6 +108,7 @@ const Forecast = (props) => {
                 <br />
                 {row.humidity} %
                 <br />
+                {row.rain} mm
               </Typography>
             </CardContent>
           </Card>

@@ -10,6 +10,7 @@ const CurrentWeather = (props) => {
     desc: "",
     wind: "",
     humidity: "",
+    rain: "",
     date: "",
     icon: "",
   });
@@ -27,12 +28,22 @@ const CurrentWeather = (props) => {
         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
       )
       .then((result) => {
+        let rain = ": 0";
+        if (result.data.rain) {
+          if (result.data["rain"]["3h"]) {
+            rain = " (3h): " + Math.round(result.data["rain"]["3h"]);
+          } else if (result.data["rain"]["1h"]) {
+            rain = " (1h): " + Math.round(result.data["rain"]["1h"]);
+          }
+        }
+
         setData({
           location: result.data.name,
           temp: Math.round(result.data.main.temp),
           desc: result.data.weather[0].description,
           wind: Math.round(result.data.wind.speed * 10) / 10,
           humidity: result.data.main.humidity,
+          rain: rain,
           date: result.data.dt,
           icon: result.data.weather[0].icon,
         });
@@ -146,6 +157,8 @@ const CurrentWeather = (props) => {
             Wind: {data.wind} m/s
             <br />
             Humidity: {data.humidity} %
+            <br />
+            Precipitation{data.rain} mm
           </Typography>
         </Stack>
       </CardContent>
