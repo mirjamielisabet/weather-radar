@@ -103,22 +103,22 @@ const CurrentWeather = (props) => {
     return <div className="errormsg">Current Weather data: {errorMsg}</div>;
   }
   return (
-    <Card className="weatherContainer">
+    <Card className="weatherContainer" variant="outlined">
       <CardContent>
         <Stack direction="row" justifyContent="space-between" paddingBottom={3}>
           <Stack>
             <Typography
-              sx={{ fontSize: 20, position: "relative", top: "15px" }}
+              sx={{ fontSize: "19pt", position: "relative", top: "15px" }}
             >
               {data.location}
             </Typography>
             <Typography
               sx={{
-                fontSize: 14,
+                fontSize: "13pt",
                 position: "relative",
                 top: "11px",
               }}
-              color="text.secondary"
+              className="secondary-text"
             >
               {data.desc}
             </Typography>
@@ -131,7 +131,7 @@ const CurrentWeather = (props) => {
               className="icon"
             />
             <Typography
-              sx={{ fontSize: 30, position: "relative", top: "15px" }}
+              sx={{ fontSize: "26pt", position: "relative", top: "15px" }}
             >
               {data.temp}
             </Typography>
@@ -144,16 +144,20 @@ const CurrentWeather = (props) => {
         </Stack>
 
         <Stack direction="row" justifyContent="space-between">
-          <Stack>
-            <Typography variant="body2" sx={{ fontSize: 15 }}>
+          <Stack sx={{ position: "relative", top: "25px" }}>
+            <Typography sx={{ fontSize: "15pt" }}>
               {formatDate(data.date)}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography className="secondary-text" sx={{ fontSize: "13pt" }}>
               {formatTime(data.date)}
             </Typography>
           </Stack>
 
-          <Typography variant="body2" textAlign="right" color="text.secondary">
+          <Typography
+            textAlign="right"
+            className="secondary-text"
+            sx={{ fontSize: "13pt" }}
+          >
             Wind: {data.wind} m/s
             <br />
             Humidity: {data.humidity} %

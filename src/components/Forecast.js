@@ -87,11 +87,11 @@ const Forecast = (props) => {
     >
       {data.map((row, index) => {
         return (
-          <Card sx={{ width: "100%" }} key={index}>
+          <Card sx={{ width: "100%" }} variant="outlined" key={index}>
             <CardContent>
               <Typography
-                sx={{ fontSize: 14 }}
-                color="text.secondary"
+                className="secondary-text"
+                sx={{ fontSize: "13pt" }}
                 gutterBottom
               >
                 {formatTime(row.date)}
@@ -100,10 +100,27 @@ const Forecast = (props) => {
                 src={`https://openweathermap.org/img/w/${row.icon}.png`}
                 alt="weather icon"
               />
-              <Typography sx={{ fontSize: 20 }} gutterBottom>
-                {row.temp} °C
-              </Typography>
-              <Typography variant="body2">
+              <Stack direction="row" justifyContent="center">
+                <Typography sx={{ fontSize: "15pt" }}>{row.temp}</Typography>
+                <Typography
+                  sx={{ fontSize: "9pt", position: "relative", top: "2px" }}
+                >
+                  °C
+                </Typography>
+              </Stack>
+            </CardContent>
+            <CardContent
+              sx={{
+                backgroundColor: "#e5f6fd",
+                borderTop: "1px solid #E6E6E6",
+              }}
+            >
+              <Typography
+                className="secondary-text"
+                sx={{
+                  fontSize: "10pt",
+                }}
+              >
                 {row.wind} m/s
                 <br />
                 {row.humidity} %
