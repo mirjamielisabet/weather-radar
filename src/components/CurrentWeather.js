@@ -13,6 +13,7 @@ const CurrentWeather = (props) => {
     date: "",
     icon: "",
   });
+  const [errorMsg, setErrorMsg] = React.useState("");
 
   const currentLocation = props.location;
   const getLat = props.getLat;
@@ -35,6 +36,17 @@ const CurrentWeather = (props) => {
           date: result.data.dt,
           icon: result.data.weather[0].icon,
         });
+      })
+      .catch((error) => {
+        if (error.response) {
+          setErrorMsg(error.response.status + " " + error.response.statusText);
+          console.log(error.response);
+        } else if (error.request) {
+          setErrorMsg("Error: request failed, no response");
+          console.log(error.request);
+        } else {
+          setErrorMsg("Error: ", error.message);
+        }
       });
   };
 
@@ -76,6 +88,9 @@ const CurrentWeather = (props) => {
     }
   };
 
+  if (errorMsg !== "") {
+    return <div className="errormsg">Current Weather data: {errorMsg}</div>;
+  }
   return (
     <Card className="weatherContainer">
       <CardContent>
@@ -102,7 +117,7 @@ const CurrentWeather = (props) => {
             <img
               src={`https://openweathermap.org/img/w/${data.icon}.png`}
               alt="weather icon"
-              class="icon"
+              className="icon"
             />
             <Typography
               sx={{ fontSize: 30, position: "relative", top: "15px" }}

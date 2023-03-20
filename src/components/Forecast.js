@@ -12,6 +12,7 @@ const Forecast = (props) => {
       icon: "",
     },
   ]);
+  const [errorMsg, setErrorMsg] = React.useState("");
 
   const currentLocation = props.location;
   const getLat = props.getLat;
@@ -46,6 +47,17 @@ const Forecast = (props) => {
           });
         }
         setData(tempArr);
+      })
+      .catch((error) => {
+        if (error.response) {
+          setErrorMsg(error.response.status + " " + error.response.statusText);
+          console.log(error.response);
+        } else if (error.request) {
+          setErrorMsg("Error: request failed, no response");
+          console.log(error.request);
+        } else {
+          setErrorMsg("Error: ", error.message);
+        }
       });
   };
 
@@ -55,6 +67,9 @@ const Forecast = (props) => {
     getForecastData(lat, lon);
   }, [currentLocation, getLat, getLon]);
 
+  if (errorMsg !== "") {
+    return <div className="errormsg">Forecast data: {errorMsg}</div>;
+  }
   return (
     <Stack
       direction="row"
@@ -64,7 +79,7 @@ const Forecast = (props) => {
     >
       {data.map((row, index) => {
         return (
-          <Card key={index}>
+          <Card sx={{ width: "100%" }} key={index}>
             <CardContent>
               <Typography
                 sx={{ fontSize: 14 }}

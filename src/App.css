@@ -48,3 +48,9 @@ body {
   margin-top: 2%;
   margin-bottom: 5%;
 }
+
+.errormsg {
+  text-align: center;
+  font-size: 1.2em;
+  padding: 2em;
+}
