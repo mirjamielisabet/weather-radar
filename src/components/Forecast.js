@@ -2,6 +2,16 @@ import React from "react";
 import axios from "axios";
 import { Card, CardContent, Stack, Typography } from "@mui/material";
 
+/**
+ * A component containing the weather forecast for the chosen location.
+ * Consists of Cards containing information about the weather.
+ *
+ * @param {Object} props
+ * @param {string} props.location - The chosen location
+ * @param {Function} props.getLat - Function for obtaining the latitude of the chosen location
+ * @param {Function} props.getLon - Function for obtaining the longitude of the chosen location
+ * @returns the Forecast component
+ */
 const Forecast = (props) => {
   const [data, setData] = React.useState([
     {
@@ -19,6 +29,11 @@ const Forecast = (props) => {
   const getLat = props.getLat;
   const getLon = props.getLon;
 
+  /**
+   * Formats the time as 'hours:minutes'
+   * @param {string} time - the time in string format (year-month-day hours:minutes:seconds)
+   * @returns the formatted time
+   */
   const formatTime = (time) => {
     let date = new Date(time);
     let hours = date.getHours();
@@ -28,6 +43,11 @@ const Forecast = (props) => {
     return timeString;
   };
 
+  /**
+   * By using Axios, fetches the weather forecast of the chosen location and saves the data to the state.
+   * @param {number} lat - the latitude of the location
+   * @param {number} lon - the longitude of the location
+   */
   const getForecastData = (lat, lon) => {
     const apiKey = process.env.REACT_APP_API_KEY;
 
@@ -69,6 +89,10 @@ const Forecast = (props) => {
       });
   };
 
+  /**
+   * Gets the latitude and longitude values and calls getForecastData function
+   * after the initial render and when the location changes.
+   */
   React.useEffect(() => {
     let lat = getLat(currentLocation);
     let lon = getLon(currentLocation);

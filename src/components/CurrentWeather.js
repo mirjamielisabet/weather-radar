@@ -3,6 +3,15 @@ import React from "react";
 import axios from "axios";
 import { Card, CardContent, Stack, Typography } from "@mui/material";
 
+/**
+ * A component containing information about the current weather of the chosen location.
+ *
+ * @param {Object} props
+ * @param {string} props.location - The chosen location
+ * @param {Function} props.getLat - Function for obtaining the latitude of the chosen location
+ * @param {Function} props.getLon - Function for obtaining the longitude of the chosen location
+ * @returns the Current Weather component
+ */
 const CurrentWeather = (props) => {
   const [data, setData] = React.useState({
     location: "",
@@ -20,6 +29,11 @@ const CurrentWeather = (props) => {
   const getLat = props.getLat;
   const getLon = props.getLon;
 
+  /**
+   * By using Axios, fetches the weather information of the chosen location and saves the data to the state.
+   * @param {number} lat - the latitude of the location
+   * @param {number} lon - the longitude of the location
+   */
   const getWeatherData = (lat, lon) => {
     const apiKey = process.env.REACT_APP_API_KEY;
 
@@ -61,12 +75,21 @@ const CurrentWeather = (props) => {
       });
   };
 
+  /**
+   * Gets the latitude and longitude values and calls getWeatherData function
+   * after the initial render and when the location changes.
+   */
   React.useEffect(() => {
     let lat = getLat(currentLocation);
     let lon = getLon(currentLocation);
     getWeatherData(lat, lon);
   }, [currentLocation, getLat, getLon]);
 
+  /**
+   * Formats the date as 'month date+ordinal indicator'
+   * @param {number} time - the time in unix form
+   * @returns the formatted date
+   */
   const formatDate = (time) => {
     let date = new Date(time * 1000);
     let dt = date.getDate();
@@ -76,6 +99,11 @@ const CurrentWeather = (props) => {
     return dateString;
   };
 
+  /**
+   * Formats the time as 'hours:minutes'
+   * @param {number} time - the time in unix form
+   * @returns the formatted time
+   */
   const formatTime = (time) => {
     let date = new Date(time * 1000);
     let hours = date.getHours();
@@ -85,6 +113,11 @@ const CurrentWeather = (props) => {
     return timeString;
   };
 
+  /**
+   * Returns the fitting ordinal indicator for the date.
+   * @param {number} date - the date
+   * @returns the ordinal indicator
+   */
   const ordinal = (date) => {
     if (date > 3 && date < 21) return "th";
     switch (date % 10) {

@@ -5,10 +5,21 @@ import DropDownMenu from "./components/DropDownMenu";
 import CurrentWeather from "./components/CurrentWeather";
 import Forecast from "./components/Forecast";
 
+/**
+ * The Application that consists of the header, drop-down menu, current weather information
+ * and the weather forecast.
+ *
+ * @returns the Application
+ */
 const App = () => {
   const [currentLocation, setCurrentLocation] = React.useState("All cities");
   const locations = ["Espoo", "Jyväskylä", "Kuopio", "Tampere"];
 
+  /**
+   * Returns the latitude of the chosen location.
+   * @param {string} location - the chosen location
+   * @returns the latitude of the location
+   */
   const getLat = (location) => {
     switch (location) {
       case "Espoo":
@@ -24,6 +35,11 @@ const App = () => {
     }
   };
 
+  /**
+   * Returns the longitude of the chosen location.
+   * @param {string} location - the chosen location
+   * @returns the longitude of the location
+   */
   const getLon = (location) => {
     switch (location) {
       case "Espoo":
