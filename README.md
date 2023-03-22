@@ -20,3 +20,14 @@ The Application displays information about the current weather and the weather f
 React, [Axios](https://github.com/axios/axios), [Material.ui](https://mui.com/) library, [OpenWeather](https://openweathermap.org/)
 
 ## How to use
+
+***Note: You need [Node.js](https://nodejs.org/) and Git to follow these instructions***
+
+Run the App locally:
+1. Open a terminal and go to the folder of your choice
+2. Clone the project's GitHub repository: ```git clone https://github.com/mirjamielisabet/weather-radar```
+3. Create an account and get your own (free) API key from here:  [OpenWeather - Sign Up](https://home.openweathermap.org/users/sign_up)
+4. In the cloned project's folder, there is a <i>.env</i> file. Open it and replace the <i>PLACE YOUR API KEY HERE</i> text with your API key
+6. In the terminal, go to the project folder (weather-radar)
+7. Install dependencies: ```npm install```
+8. Run the App: ```npm start```
