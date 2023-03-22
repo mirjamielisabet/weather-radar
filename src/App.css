@@ -52,6 +52,7 @@ body {
   margin-top: 10px;
   margin-bottom: 40px;
   text-align: center;
+  overflow: auto;
 }
 
 .errormsg {
@@ -69,7 +70,16 @@ body {
   }
 }
 
-@media screen and (min-width: 650px) {
+@media screen and (min-width: 620px) {
+  .dropdown,
+  .weatherContainer,
+  .forecastContainer {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
+
+@media screen and (min-width: 700px) {
   .dropdown,
   .weatherContainer,
   .forecastContainer {

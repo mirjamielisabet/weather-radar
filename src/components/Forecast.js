@@ -103,15 +103,14 @@ const Forecast = (props) => {
     return <div className="errormsg">Forecast data: {errorMsg}</div>;
   }
   return (
-    <Stack
-      direction="row"
-      spacing={1}
-      justifyContent="center"
-      className="forecastContainer"
-    >
+    <Stack direction="row" spacing={1} className="forecastContainer">
       {data.map((row, index) => {
         return (
-          <Card sx={{ width: "100%" }} variant="outlined" key={index}>
+          <Card
+            sx={{ minWidth: "90px", width: "100%" }}
+            variant="outlined"
+            key={index}
+          >
             <CardContent>
               <Typography
                 className="secondary-text"
